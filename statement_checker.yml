@@ -1,0 +1,16 @@
+    - name: check container status  
+      block:
+          - name: check if container is still running
+            shell: docker inspect -f '{{ '{{' }} .State.Running {{ '}}' }}' {{ item.mcs }}
+            register: result
+            failed_when: result.stdout == "false"
+      rescue:
+          - name: debug
+            shell: docker logs {{ item.mcs }}
+            register: dockerlogs
+          - name: debug
+            debug:
+                msg: "{{ dockerlogs.stdout_lines }}"
+          - name: stop with failed
+            set_fact:
+              failed_start: "1"
