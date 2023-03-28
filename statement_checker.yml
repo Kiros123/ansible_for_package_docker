@@ -11,6 +11,10 @@
           - name: debug
             debug:
                 msg: "{{ dockerlogs.stdout_lines }}"
+          - name: message
+            fail: 
+              msg: container {{ item.mcs }} is DEAD, please check docker logs at top
+            ignore_errors: true
           - name: stop with failed
             set_fact:
               failed_start: "1"
