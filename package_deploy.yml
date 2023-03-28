@@ -1,0 +1,40 @@
+    - name: include variables
+      include_vars:
+        file: vars/{{ item.mcs }}.yml
+    - name: Stop container, pull latest image and run container with new version of image without exposing ports
+      docker_container:
+        name: "{{ container_name }}"
+        image: "gitlab.example.ru:5050/{{ group_name }}/{{ project_name }}"
+        state: started
+        recreate: yes
+        pull: yes
+        env: "{{ container_env }}"
+        networks:
+          - name: default
+            aliases: 
+              - "{{container_name}}"
+        log_driver: gelf
+        log_options:
+          gelf-address: udp://192.168.111.12:12201
+          tag: {{ contour }}
+      when: container_ports is not defined
+
+    - name: Stop container, pull latest image and run container with new version of image with exposing ports
+      docker_container:
+        name: "{{container_name}}"
+        image: "gitlab.example.ru:5050/{{ group_name }}/{{ project_name }}:{{ item.version }}"
+        ports: "{{container_ports}}"
+        state: started
+        recreate: yes
+        pull: yes
+        env: "{{container_env}}"
+        networks:
+          - name: default
+            aliases: 
+              - "{{container_name}}"
+        log_driver: gelf
+        log_options:
+          gelf-address: udp://192.168.111.12:12201
+          tag: {{ contour }}
+      when: container_ports is defined
+          
