@@ -13,7 +13,7 @@
         networks:
           - name: default
             aliases: 
-              - "{{container_name}}"
+              - "{{ container_name }}"
         log_driver: gelf
         log_options:
           gelf-address: udp://192.168.111.12:12201
@@ -22,9 +22,9 @@
 
     - name: Stop container, pull latest image and run container with new version of image with exposing ports
       docker_container:
-        name: "{{container_name}}"
+        name: "{{ container_name }}"
         image: "gitlab.example.ru:5050/{{ group_name }}/{{ project_name }}:{{ item.version }}"
-        ports: "{{container_ports}}"
+        ports: "{{ container_ports }}"
         state: started
         recreate: yes
         pull: yes
