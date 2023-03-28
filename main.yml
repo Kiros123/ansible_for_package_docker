@@ -1,0 +1,23 @@
+- hosts: all
+  tasks: 
+    - name: login on gitlab container registry
+      docker_login:
+        registry_url: gitlab.example.ru:5050
+        username: "{{docker_login}}"
+        password: "{{docker_password}}"
+        
+    - name: deliver config
+      get_url: 
+        url: https://gitlab.example.ru/api/v4/projects/{{ package_repo_id }}/repository/files/package.yml/raw?ref={{ branch }}
+        dest: "/tmp/package.yml"
+        headers:
+          PRIVATE-TOKEN: {{ PRIVATE_TOKEN }}
+          
+    - name: include package
+      include_vars:
+        file: /tmp/package.yml
+        
+    - name: mcs loop
+      include_tasks: ./package_deploy.yml
+      with_items:
+          - "{{ microservices }}"
