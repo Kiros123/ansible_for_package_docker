@@ -1,6 +1,7 @@
     - name: include variables
       include_vars:
         file: vars/{{ item.mcs }}.yml
+        
     - name: Stop container, pull latest image and run container with new version of image without exposing ports
       docker_container:
         name: "{{ container_name }}"
