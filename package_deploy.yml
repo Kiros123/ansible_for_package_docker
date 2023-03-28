@@ -27,11 +27,11 @@
         state: started
         recreate: yes
         pull: yes
-        env: "{{container_env}}"
+        env: "{{ container_env }}"
         networks:
           - name: default
             aliases: 
-              - "{{container_name}}"
+              - "{{ container_name }}"
         log_driver: gelf
         log_options:
           gelf-address: udp://192.168.111.12:12201
