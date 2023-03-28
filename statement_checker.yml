@@ -15,6 +15,6 @@
             fail: 
               msg: container {{ item.mcs }} is DEAD, please check docker logs at top
             ignore_errors: true
-          - name: stop with failed
+          - name: registering error flag
             set_fact:
               failed_start: "1"
