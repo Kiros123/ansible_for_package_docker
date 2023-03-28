@@ -26,7 +26,7 @@
       with_items:
           - "{{ microservices }}"
           
-    - name: fail if some start errors registered
+    - name: fail if some statement errors registered
       fail:
         msg: some container doesnt running successfully, check ansible error logs
       when: failed_start == "1"
