@@ -28,5 +28,5 @@
           
     - name: fail if some statement errors registered
       fail:
-        msg: some container(s) doesnt running successfully, check ansible logs for stages with error
+        msg: some container(s) doesnt running successfully, check ansible logs for stages with errors
       when: failed_start == "1"
