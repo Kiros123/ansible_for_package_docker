@@ -3,8 +3,8 @@
     - name: login on gitlab container registry
       docker_login:
         registry_url: gitlab.example.ru:5050
-        username: "{{docker_login}}"
-        password: "{{docker_password}}"
+        username: "{{ docker_login }}"
+        password: "{{ docker_password }}"
         
     - name: deliver config
       get_url: 
