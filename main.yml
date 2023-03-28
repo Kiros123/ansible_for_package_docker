@@ -25,6 +25,7 @@
       include_tasks: ./statement_checker.yml
       with_items:
           - "{{ microservices }}"
+          
     - name: fail if some start errors registered
       fail:
         msg: some container doesnt running successfully, check ansible error logs
