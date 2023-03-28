@@ -1,0 +1,4 @@
+container_env:
+      variable1: 123
+      variable2: 321
+      variable3: 333
