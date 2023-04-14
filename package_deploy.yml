@@ -42,5 +42,5 @@
           - name: clean up port variable
             set_fact:
                 container_ports: "0"
-      when: container_ports | length > 2
+      when: container_ports | length >= 2
           
